@@ -1,0 +1,181 @@
+syntax = "proto3";
+
+import "z_enum.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+package anhuai.user.grpc;
+
+option java_multiple_files = true;
+option java_package = "anhuai.user.grpc.lib";
+option java_outer_classname = "UserAccountProto";
+
+service UserAccount {
+  rpc findOne (UserAccountIdentifier) returns (UserAccountItem);
+  rpc findAll (UserAccountsQuery) returns (UserAccountItems);
+  rpc insert (UserAccountForm) returns (UserAccountIdentifier);
+  rpc update (UserAccountForm) returns (UserAccountIdentifier);
+  rpc delete(stream UserAccountIdentifier) returns (google.protobuf.Int32Value);
+}
+
+message UserAccountIdentifier {
+    int32 id = 1;
+}
+
+message UserAccountItem{
+
+   /**
+     * 序号
+     */
+     int32 id = 1;
+
+    /**
+     * 账号，唯一
+     */
+     string account = 2;
+
+    /**
+     * 密码
+     */
+     string password = 3;
+
+    /**
+     * 昵称
+     */
+     string nickname = 4;
+
+    /**
+     * 头像图片地址
+     */
+     string imageUrl = 5;
+
+    /**
+     * 性别（0.其他；1.男；2.女；）
+     */
+     int32 sex = 6;
+
+    /**
+     * 出生日期
+     */
+     google.protobuf.Timestamp birthday = 7;
+
+    /**
+     * 手机号码
+     */
+     string cellphone = 8;
+
+    /**
+     * 邮箱
+     */
+     string email = 9;
+
+    /**
+     * 组织类型
+     */
+     string groupType = 10;
+
+    /**
+     * 组织ID，逻辑外键
+     */
+     int32 groupId = 11;
+
+    /**
+     * 添加日期
+     */
+     google.protobuf.Timestamp insDate = 12;
+
+    /**
+     * 状态
+     */
+     Status status = 13;
+
+    /**
+     * 微信UnionID（唯一）
+     */
+     string wxUnionid = 14;
+
+      Season season = 15;
+}
+
+message UserAccountForm {
+
+    /**
+     * 账号，唯一
+     */
+     string account = 1;
+
+    /**
+     * 密码
+     */
+     string password = 2;
+
+    /**
+     * 昵称
+     */
+     string nickname = 3;
+
+    /**
+     * 头像图片地址
+     */
+     string imageUrl = 4;
+
+    /**
+     * 性别（0.其他；1.男；2.女；）
+     */
+     int32 sex = 5;
+
+    /**
+     * 出生日期
+     */
+     google.protobuf.Timestamp birthday = 6;
+
+    /**
+     * 手机号码
+     */
+     string cellphone = 7;
+
+    /**
+     * 邮箱
+     */
+     string email = 8;
+
+    /**
+     * 组织类型
+     */
+     string groupType = 9;
+
+    /**
+     * 组织ID，逻辑外键
+     */
+     int32 groupId = 10;
+
+    /**
+     * 微信UnionID（唯一）
+     */
+     string wxUnionid = 11;
+
+    /**
+     * 状态
+     */
+     Status status = 12;
+
+    /**
+     * 序号
+     */
+     int32 id = 13;
+
+      Season season = 14;
+}
+
+message UserAccountsQuery {
+  int32 page = 1;
+  int32 size = 2;
+  map<string, bool> sort = 3;
+
+}
+
+message UserAccountItems {
+  int32 page = 1;
+  int64 size = 2;
+  repeated UserAccountItem items = 3;
+}

@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+import "z_enum.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+package anhuai.user.grpc;
+
+option java_multiple_files = true;
+option java_package = "anhuai.user.grpc.lib";
+option java_outer_classname = "UserLoginLogProto";
+
+service UserLoginLog {
+  rpc findOne (UserLoginLogIdentifier) returns (UserLoginLogItem);
+  rpc findAll (UserLoginLogsQuery) returns (UserLoginLogItems);
+  rpc insert (UserLoginLogForm) returns (UserLoginLogIdentifier);
+  rpc update (UserLoginLogForm) returns (UserLoginLogIdentifier);
+  rpc delete(stream UserLoginLogIdentifier) returns (google.protobuf.Int32Value);
+}
+
+message UserLoginLogIdentifier {
+    int32 id = 1;
+}
+
+message UserLoginLogItem{
+    /**
+     * 序号
+     */
+     int32 id = 1;
+
+    /**
+     * 账号ID（关联用户帐号）
+     */
+     int32 accountId = 2;
+
+    /**
+     * 登录时间
+     */
+     google.protobuf.Timestamp loginDate = 3;
+
+    /**
+     * 登录ip
+     */
+     string loginIp = 4;
+
+    /**
+     * 登录地区
+     */
+     string region = 5;
+}
+
+message UserLoginLogForm {
+    /**
+     * 账号ID（关联用户帐号）
+     */
+     int32 accountId = 1;
+
+    /**
+     * 登录时间
+     */
+     google.protobuf.Timestamp loginDate = 2;
+
+    /**
+     * 登录ip
+     */
+     string loginIp = 3;
+
+    /**
+     * 登录地区
+     */
+     string region = 4;
+
+    /**
+     * 序号
+     */
+     int32 id = 5;
+}
+
+message UserLoginLogsQuery {
+  int32 page = 1;
+  int32 size = 2;
+  map<string, bool> sort = 3;
+
+}
+
+message UserLoginLogItems {
+  int32 page = 1;
+  int64 size = 2;
+  repeated UserLoginLogItem items = 3;
+}

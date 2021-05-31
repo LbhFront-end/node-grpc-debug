@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package anhuai.user.grpc;
+
+option java_multiple_files = true;
+option java_package = "anhuai.user.grpc.lib";
+option java_outer_classname = "EnumProto";
+
+
+    /**
+     * 状态
+     */
+    enum Status {
+        /**
+         * 已启用
+         */
+        ENABLED = 0;
+        /**
+         * 已停用
+         */
+        DISABLED = 1;
+        /**
+         * 已删除
+         */
+        DELETED = 2;
+    }
+
+     /**
+      * 测试枚举
+      */
+    enum Season {
+     /**
+      * 春
+      */
+       SPRING = 0;
+     /**
+      * 夏
+      */
+       SUMMER = 1;
+     /**
+      * 秋
+      */
+       AUTUMN = 2;
+     /**
+      * 冬
+      */
+       WINTER = 3;
+
+    }
